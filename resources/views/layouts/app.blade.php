@@ -120,6 +120,20 @@
                                 <br>
 
                                 <li class="list-group-item">
+                                    <a href="{{ route('comments.index') }}">
+                                        Comments
+                                    </a>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <a href="{{ route('replies.index') }}">
+                                        Replies
+                                    </a>
+                                </li>
+
+                                <br>
+
+                                <li class="list-group-item">
                                     <a href="{{ route('categories.index') }}">
                                         Categories
                                     </a>
@@ -160,8 +174,8 @@
         </main>
     </div>
 
-    <!-- Scripts -->
-    @yield('js')
-    <script src="{{ asset('js/app.js') }}"></script>
+<!-- Scripts -->
+@yield('js')
+<script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

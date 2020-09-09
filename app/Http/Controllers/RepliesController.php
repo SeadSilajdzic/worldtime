@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Reply;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class ProfilesController extends Controller
+class RepliesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,9 @@ class ProfilesController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.comments.replies.index', [
+            'replies' => Reply::orderBy('created_at', 'desc')->paginate(15),
+        ]);
     }
 
     /**
@@ -32,9 +36,26 @@ class ProfilesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function replyCreate(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        $this->validate($request, [
+            'content' => 'required'
+        ]);
+
+        Reply::create([
+            'user_id' => Auth::user()->id,
+            'comment_id' => $request->comment_id,
+            'is_active' => 0,
+            'author' => $user->name,
+            'email' => $user->email,
+            'content' => $request->content
+        ]);
+
+        $request->session()->flash('reply_message', 'Your reply is submitted and is waiting for moderation!');
+
+        return redirect()->back();
     }
 
     /**
@@ -79,6 +100,9 @@ class ProfilesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $reply = Reply::findOrFail($id);
+        $reply->delete();
+
+        return redirect()->back();
     }
 }

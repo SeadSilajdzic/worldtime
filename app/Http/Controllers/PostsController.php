@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Comment;
 use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
@@ -93,9 +94,14 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        $comments = Comment::orderBy('created_at', 'desc')->where('post_id', '=', $post->id)->where('is_active', '=', 1)->paginate(5);
+
+        return view('admin.posts.show', [
+            'post' => $post,
+            'comments' => $comments
+        ]);
     }
 
     /**

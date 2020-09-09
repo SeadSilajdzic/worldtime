@@ -45,7 +45,7 @@
             <div class="navbar-bottom">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <a class="navbar-brand" href="{{ route('home') }}"
+                        <a class="navbar-brand" href="{{ url('/') }}"
                         ><img src="{{ asset('assets/images/logo.svg') }}" alt=""
                             /></a>
                     </div>
@@ -77,7 +77,7 @@
                                 </li>
                                 @foreach($categories as $category)
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('categories.single', $category->id) }}">{{ $category->name }}</a>
+                                        <a class="nav-link" href="{{ route('categories.single', $category->slug) }}">{{ $category->name }}</a>
                                     </li>
                                 @endforeach
                             </ul>

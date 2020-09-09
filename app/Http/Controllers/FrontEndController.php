@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Comment;
 use App\Post;
+use App\Reply;
 use App\Tag;
 use Illuminate\Http\Request;
 
@@ -30,9 +32,8 @@ class FrontEndController extends Controller
         }
     }
 
-    public function category($id){
+    public function category(Category $category){
         $categories = Category::take(6)->get();
-        $category = Category::findOrFail($id);
         $three_posts = Post::orderBy('created_at', 'desc')->take(3)->get();
 
         $posts = Post::where('category_id', $category->id)->get();
@@ -45,9 +46,8 @@ class FrontEndController extends Controller
         ]);
     }
 
-    public function tag($id){
+    public function tag(Tag $tag){
         $categories = Category::take(6)->get();
-        $tag = Tag::findOrFail($id);
         $three_posts = Post::orderBy('created_at', 'desc')->take(3)->get();
 
         return view('tag', [
@@ -60,11 +60,13 @@ class FrontEndController extends Controller
     public function single_post($slug){
         $post = Post::where('slug', $slug)->first();
         $categories = Category::take(6)->get();
+        $comments = Comment::orderBy('created_at', 'desc')->where('post_id', '=', $post->id)->where('is_active', '=', 1)->paginate(5);
 
         return view('single', [
             'post' => $post,
             'title' => $post->title,
-            'categories' => $categories
+            'categories' => $categories,
+            'comments' => $comments
         ]);
     }
 }

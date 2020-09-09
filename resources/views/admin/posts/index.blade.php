@@ -11,9 +11,9 @@
                     <th>ID</th>
                     <th>Featured</th>
                     <th>Title</th>
-                    <th>Content</th>
                     <th>Category</th>
                     <th>Created</th>
+                    <th>View post</th>
                     <th>Edit</th>
                     <th>Trash</th>
                 </tr>
@@ -26,10 +26,10 @@
                         <td>
                             <img src="{{ $post->featured }}" alt="Featured image" style="width: 150px; height: 80px;">
                         </td>
-                        <td>{!! Str::limit($post->title, 25) !!}</td>
-                        <td>{!! Str::limit($post->content, 40) !!}</td>
+                        <td><a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a></td>
                         <td>{{ $post->category->name }}</td>
                         <td>{{ $post->created_at->toFormattedDateString() }}</td>
+                        <td><a href="{{ route('post.single', $post->slug) }}" type="button" class="btn btn-sm btn-secondary" target="_blank">View</a></td>
                         <td>
                             <a href="{{ route('posts.edit', $post->slug) }}" class="btn btn-info btn-sm" style="color: white;">Edit</a>
                         </td>

@@ -31,7 +31,7 @@
                     @foreach($categories as $category)
                         <div class="footer-border-bottom pb-2">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="mb-0 font-weight-600"><a style="text-decoration: none; color: white;" href="{{ route('categories.single', $category->id) }}">{{ $category->name }}</a></h5>
+                                <h5 class="mb-0 font-weight-600"><a style="text-decoration: none; color: white;" href="{{ route('categories.single', $category->slug) }}">{{ $category->name }}</a></h5>
                             </div>
                         </div>
                     @endforeach

@@ -6,7 +6,7 @@
         Edit <strong>"{{ $category->name }}"</strong> category
     </h2>
 
-    <form action="{{ route('categories.update', $category->id) }}" method="post">
+    <form action="{{ route('categories.update', $category->slug) }}" method="post">
         @csrf
         @method('PUT')
 

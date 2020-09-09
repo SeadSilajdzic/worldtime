@@ -13,8 +13,8 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <h1 class="font-weight-600 mb-4">
-                                            {{ $tag->tag }}
+                                        <h1 class="mb-4">
+                                            <span class="font-weight-600 text-primary">{{ $tag->tag }}</span>
                                         </h1>
                                     </div>
                                 </div>

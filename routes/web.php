@@ -23,12 +23,12 @@ Route::get('/post/{slug}', [
     'as' => 'post.single'
 ]);
 
-Route::get('/category/{id}', [
+Route::get('/category/{category}', [
     'uses' => 'FrontEndController@category',
     'as' => 'categories.single'
 ]);
 
-Route::get('/tag/{id}', [
+Route::get('/tag/{tag}', [
     'uses' => 'FrontEndController@tag',
     'as' => 'tags.single'
 ]);
@@ -70,5 +70,41 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
         'as' => 'users.make.admin'
     ]);
 
-   Route::resource('/users', 'UsersController');
+    Route::resource('/users', 'UsersController');
+
+    Route::post('/comments/un-approve/{id}', [
+        'uses' => 'CommentsController@comment_un_approve',
+        'as' => 'comment.un.approve'
+    ]);
+
+    Route::post('/comments/approve/{id}', [
+        'uses' => 'CommentsController@comment_approve',
+        'as' => 'comment.approve'
+    ]);
+
+    Route::post('/comments/reply/un-approve/{id}', [
+        'uses' => 'CommentsController@reply_un_approve',
+        'as' => 'reply.un.approve'
+    ]);
+
+    Route::post('/comments/reply/approve/{id}', [
+        'uses' => 'CommentsController@reply_approve',
+        'as' => 'reply.approve'
+    ]);
+
+   Route::resource('/comments', 'CommentsController');
+   Route::resource('/replies', 'RepliesController');
+});
+
+Route::group(['middleware' => 'auth'], function(){
+
+    Route::post('/comments/create', [
+        'uses' => 'CommentsController@commentCreate',
+        'as' => 'comment.create'
+    ]);
+
+    Route::post('/comments/reply/create', [
+        'uses' => 'RepliesController@replyCreate',
+        'as' => 'reply.create'
+    ]);
 });

@@ -9,17 +9,17 @@
             <div class="container">
                 <div class="row" data-aos="fade-up">
                     @if($latest_post)
-                        <div class="col-xl-8 stretch-card grid-margin" style="position: relative;">
+                        <div class="col-xl-8 stretch-card grid-margin">
                             <div class="position-relative">
                                 <img
                                     src="{{ $latest_post->featured }}"
                                     alt="banner"
                                     class="img-fluid"
                                 />
-                                <div class="banner-content" style="position: absolute; left: 0; bottom: 15%;">
+                                <div class="banner-content">
                                     <div class="fs-12 font-weight-bold mb-3">
                                         @foreach($latest_post->tags as $tag)
-                                            <a href="{{ route('tags.single', $tag->id) }}"><span class="badge badge-info ml-1" style="font-size: .9rem; border-radius: 20%;"> {{ $tag->tag }} </span></a>
+                                            <a href="{{ route('tags.single', $tag->slug) }}"><span class="badge badge-info ml-1" style="font-size: .9rem; border-radius: 20%;"> {{ $tag->tag }} </span></a>
                                         @endforeach
                                     </div>
                                     <h1 style="text-shadow: 2px 2px 2px black">
@@ -66,8 +66,8 @@
                             <div class="card-body">
                                 <h2>Categories</h2>
                                 <ul class="vertical-menu">
-                                    @foreach($all_categories as $all)
-                                        <li><a href="{{ route('categories.single', ['id' => $all->id]) }}">{{ $all->name }}</a></li>
+                                    @foreach($all_categories as $category)
+                                        <li><a href="{{ route('categories.single', $category->slug) }}">{{ $category->name }}</a></li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -86,7 +86,7 @@
                                                 <div class="badge-positioned">
                                                     <span class="font-weight-bold">
                                                         @foreach($post->tags as $tag)
-                                                            <a href="{{ route('tags.single', $tag->id) }}"><span class="badge badge-info ml-1" style="font-size: .9rem; border-radius: 20%;"> {{ $tag->tag }} </span></a>
+                                                            <a href="{{ route('tags.single', $tag->slug) }}"><span class="badge badge-info ml-1" style="font-size: .9rem; border-radius: 20%;"> {{ $tag->tag }} </span></a>
                                                         @endforeach
                                                     </span>
                                                 </div>

@@ -21,7 +21,7 @@
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->name }}</td>
                     <td>
-                        <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info btn-sm" style="color: white;">Edit</a>
+                        <a href="{{ route('categories.edit', $category->slug) }}" class="btn btn-info btn-sm" style="color: white;">Edit</a>
                     </td>
                     <td>
                         <form action="{{ route('categories.destroy', $category->id) }}" method="post">

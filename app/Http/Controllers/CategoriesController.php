@@ -44,6 +44,7 @@ class CategoriesController extends Controller
 
         Category::create([
             'name' => $request->name,
+            'slug' => Str::slug($request->name),
         ]);
 
         return redirect()->back();
@@ -66,9 +67,8 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::findOrFail($id);
         return view('admin.categories.edit', [
             'category' => $category
         ]);
@@ -81,15 +81,14 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
         $this->validate($request, [
             'name' => 'required'
         ]);
 
-        $category = Category::findOrFail($id);
-
         $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
         $category->save();
 
         return redirect()->route('categories.index');
